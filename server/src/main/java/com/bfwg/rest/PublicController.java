@@ -28,7 +28,7 @@ public class PublicController {
     @Autowired
     StringStatsService stringStatsService;
 
-    @RequestMapping( method = POST, value= "/foo")
+    @RequestMapping( method = GET, value= "/foo")
     public Map<String, String> getFoo() {
         Map<String, String> fooObj = new HashMap<>();
         fooObj.put("foo", "bar");
