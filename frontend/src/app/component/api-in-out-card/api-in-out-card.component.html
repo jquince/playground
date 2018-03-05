@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><b>{{title}}</b></mat-card-title>
+    <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image *ngIf="imgUrl" [src]="imgUrl">
+  <mat-card-content>
+    <p>
+      {{content}}
+    </p>
+    <mat-form-field>
+      <textarea [(ngModel)]="input" #inputCtrl="ngModel" matInput required placeholder="Input"></textarea>
+    </mat-form-field>
+    <mat-form-field *ngIf="isLocal">
+      <textarea [(ngModel)]="output" matInput readonly placeholder="Output"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+            mat-raised-button
+            color="primary"
+            (click)="onButtonClick()">
+      {{apiText}}
+    </button>
+  </mat-card-actions>
+  <div [class]="responsePanelClass()">
+    <pre>Path: {{responseObj.path}}</pre>
+    <pre>Method: {{responseObj.method}}</pre>
+    <pre>Status: {{responseObj.status}}</pre>
+    <pre>Message: {{responseObj.body || responseObj.message}} </pre>
+  </div>
+</mat-card>
