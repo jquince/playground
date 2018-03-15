@@ -12,38 +12,38 @@ import java.util.regex.Pattern;
 @Service
 public class StringStatsServiceImpl implements StringStatsService {
     /*
-    * Uses regex to count number of matches
-    * @param input string to be processed
-    * @return A map containing stats about the processed string.
-    * */
+     * Uses regex to count number of matches
+     * @param input string to be processed
+     * @return A map containing stats about the processed string.
+     * */
     @Override
     public Map<String, String> getStats(String input) {
-        Long vowelsCount = new Long(0);
-        Long wordsCount = new Long(0);
-        Long linesCount = new Long(1);
-        Long consonantsCount = new Long(0);
-        Long spacesCount = new Long(0);
+        Long vowelsCount = 0L;
+        Long wordsCount = 0L;
+        Long linesCount = 0L;
+        Long consonantsCount = 0L;
+        Long spacesCount = 0L;
         Boolean inWord = false;
-        Character curr = null;
+        Character curr;
         String vowels = "aeiou";
         String testString = input.toLowerCase();
-        if(!StringUtils.isEmpty(input)){
+        if (!StringUtils.isEmpty(input)) {
             for (int i = 0; i < input.length(); i++) {
                 curr = testString.charAt(i);// get current char
-                if(curr >= 'a' && curr <= 'z') {//is it a word char
-                    if(!inWord){
+                if (curr >= 'a' && curr <= 'z') {//is it a word char
+                    if (!inWord) {
                         wordsCount++;//starting a word let's count it
                     }
-                    if(vowels.indexOf(curr) >= 0){//vowel found
+                    if (vowels.indexOf(curr) >= 0) {//vowel found
                         vowelsCount++;
                     } else {
                         consonantsCount++;
                     }
                     inWord = true;
                 } else {
-                    if(curr == ' ') {//space
+                    if (curr == ' ') {//space
                         spacesCount++;
-                    } else if(curr == '\n'){
+                    } else if (curr == '\n') {
                         linesCount++;
                     }
                     //check for word boundary
@@ -53,7 +53,7 @@ public class StringStatsServiceImpl implements StringStatsService {
                 }
             }
         } else {
-            linesCount--;//no string set to zero
+            linesCount = 0L;//no string set to zero
         }
 
         Map<String, String> stats = new HashMap();
@@ -70,19 +70,19 @@ public class StringStatsServiceImpl implements StringStatsService {
         return stats;
     }
 
-    Pattern VOWELS = Pattern.compile("[aeiou]",Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
-    Pattern CONSONANTS = Pattern.compile("[bcdfghjklmnpqrstvwxyz]",Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
-    Pattern SPACE = Pattern.compile(" ",Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
-    Pattern WORDS = Pattern.compile("[^\r\n]\\w+('\\w\\w?)?",Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
+    Pattern VOWELS = Pattern.compile("[aeiou]", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    Pattern CONSONANTS = Pattern.compile("[bcdfghjklmnpqrstvwxyz]", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    Pattern SPACE = Pattern.compile(" ", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    Pattern WORDS = Pattern.compile("[^\r\n]\\w+('\\w\\w?)?", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
 
     /*
-    * get the number of matches
-    *
-    * */
-    int countFromMatcher(Matcher m){
+     * get the number of matches
+     *
+     * */
+    int countFromMatcher(Matcher m) {
         int count = 0;
-        while(m.find()){//seems lame but matcher won't give you the count otherwise
+        while (m.find()) {//seems lame but matcher won't give you the count otherwise
             count++;
         }
         return count;
