@@ -20,9 +20,9 @@ public class StringStatsServiceImpl implements StringStatsService {
     public Map<String, String> getStats(String input) {
         Long vowelsCount = 0L;
         Long wordsCount = 0L;
-        Long linesCount = 0L;
         Long consonantsCount = 0L;
         Long spacesCount = 0L;
+        Long linesCount = 1L;
         Boolean inWord = false;
         Character curr;
         String vowels = "aeiou";

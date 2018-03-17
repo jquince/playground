@@ -8,7 +8,6 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.equalTo;
 public class StringStatsServiceTest extends AbstractTest {
 
     @Autowired
@@ -34,7 +33,6 @@ public class StringStatsServiceTest extends AbstractTest {
         assertThat(stringStatsService.countVowels(testString),is(65));
     }
 */
-
     @Test
     public void testWordCount() {
         Map<String,String> results = stringStatsService.getStats(testString);
@@ -53,11 +51,14 @@ public class StringStatsServiceTest extends AbstractTest {
         assertThat(results.get("words"),is("32"));
 
     }
-   /* @Test
+   @Test
     public void testLineCount() {
-        assertThat(stringStatsService.countLines(testString),is(3));
-        assertThat(stringStatsService.countLines("wait a sec\\r\\nhow many words\\r\\ndoes this have?"),is(3));
+       Map<String,String> results = stringStatsService.getStats("wait a sec\r\nhow many words\r\ndoes this have?");
+        assertThat("carriage",results.get("lines"),is("3"));
+       results = stringStatsService.getStats("\nwait a sec\r\nhow many words\r\ndoes this have?");///hmm should this be  3 or 4
+       assertThat("carriage",results.get("lines"),is("4"));
     }
+    /*
     @Test
     public void testConsonantCount() {
         assertThat(stringStatsService.countConsonants(testString),is(84));
@@ -65,6 +66,8 @@ public class StringStatsServiceTest extends AbstractTest {
     @Test
     public void testSpaceCount() {
         Map<String,String> results = stringStatsService.getStats("      ");
+        assertThat(results.get("spaces"),is("6"));
+        results = stringStatsService.getStats("   \t  \n ");
         assertThat(results.get("spaces"),is("6"));
     }
 }
